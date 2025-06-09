@@ -1,0 +1,59 @@
+/* BouncingLoader.css */
+
+/* This rule targets the .loader class from the React component
+   and defines the ::before pseudo-element for the bouncing ball. */
+.loader::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px; /* Adjust if needed to align the ball visually within the loader */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #16A34A; /* Changed to your primary color: 16A34A */
+  animation: ballbns 2s ease-in-out infinite; /* Apply the animation */
+}
+
+/* Keyframes for the bouncing ball animation */
+@keyframes ballbns {
+  0% {  
+      left: 0; 
+      transform: translateX(0%); 
+      box-shadow: 
+      -5px 0 0 -1px rgba(22, 163, 74, 0.9), /* Adjusted rgba for 16A34A */
+      -10px 0 0 -2px rgba(22, 163, 74, 0.8),
+      -15px 0 0 -4px rgba(22, 163, 74, 0.6),
+      -20px 0 0 -6px rgba(22, 163, 74, 0.4),
+      -25px 0 0 -8px rgba(22, 163, 74, 0.2);
+  }
+  49% {  
+      left: 100%; 
+      transform: translateX(-100%); 
+      box-shadow: 
+      -5px 0 0 -1px rgba(22, 163, 74, 0.9),
+      -10px 0 0 -2px rgba(22, 163, 74, 0.8),
+      -15px 0 0 -4px rgba(22, 163, 74, 0.6),
+      -20px 0 0 -6px rgba(22, 163, 74, 0.4),
+      -25px 0 0 -8px rgba(22, 163, 74, 0.2);
+  }
+  51% {  
+      left: 100%; 
+      transform: translateX(-100%); 
+      box-shadow: 
+      5px 0 0 -1px rgba(22, 163, 74, 0.9),
+      10px 0 0 -2px rgba(22, 163, 74, 0.8),
+      15px 0 0 -4px rgba(22, 163, 74, 0.6),
+      20px 0 0 -6px rgba(22, 163, 74, 0.4),
+      25px 0 0 -8px rgba(22, 163, 74, 0.2);
+  }
+  100% {  
+      left: 0; 
+      transform: translateX(0%); 
+      box-shadow: 
+      5px 0 0 -1px rgba(22, 163, 74, 0.9),
+      10px 0 0 -2px rgba(22, 163, 74, 0.8),
+      15px 0 0 -4px rgba(22, 163, 74, 0.6),
+      20px 0 0 -6px rgba(22, 163, 74, 0.4),
+      25px 0 0 -8px rgba(22, 163, 74, 0.2);
+  }
+}
