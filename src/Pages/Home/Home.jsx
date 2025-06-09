@@ -1,13 +1,11 @@
-import React, { use } from 'react';
-import SkilloraContext from '../../Context/SkilloraContext';
+import Hero from "./Hero";
 
 const Home = () => {
-    const {name}=use(SkilloraContext)
-    return (
-        <div>
-                this is home for{name}
-        </div>
-    );
+  return (
+    <div>
+      <Hero />
+    </div>
+  );
 };
 
 export default Home;
