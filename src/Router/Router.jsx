@@ -9,6 +9,7 @@ import ManageService from './../Pages/ManageService/ManageService';
 import PrivateRouter from "./PrivateRouter";
 import BookedService from './../Pages/BookedService/BookedService';
 import ServiceToDo from './../Pages/ServicesToDo/ServiceToDo';
+import Register from './../Pages/Register/Register';
 
 const router=createBrowserRouter([
     {
@@ -40,7 +41,7 @@ const router=createBrowserRouter([
             },
             {
                 path:'/register',
-                element:<Login/>
+                element:<Register/>
             }
         ]
     }
