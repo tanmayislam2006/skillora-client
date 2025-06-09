@@ -40,7 +40,7 @@ const Register = () => {
           lastSignInTime: result.user?.metadata?.lastSignInTime,
           uid: result.user?.uid,
         };
-        fetch("https://food-cart-server.onrender.com/register", {
+        fetch("http://localhost:5000/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const Register = () => {
           lastSignInTime: user?.metadata?.lastSignInTime,
           uid: user?.uid,
         };
-        fetch("https://food-cart-server.onrender.com/register", {
+        fetch("http://localhost:5000/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -27,7 +27,7 @@ const Update = () => {
     const formData = new FormData(form);
     const updateInfo = Object.fromEntries(formData.entries());
     axios
-      .put(`https://food-cart-server.onrender.com/updateDish/${id}`, {
+      .put(`http://localhost:5000/updateDish/${id}`, {
         ...updateInfo,
       })
       .then((res) => {

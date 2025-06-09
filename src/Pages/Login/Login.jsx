@@ -1,14 +1,13 @@
 import React, { use, useState } from "react";
-import Logo from "../../assets/food-cart.png";
 import { FcGoogle } from "react-icons/fc";
-import FoodCartContext from "../../Context/FoodCartContext";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import SkilloraContext from "../../Context/SkilloraContext";
 
 const Login = () => {
-  const { googleLogin, loginUser,setErrorMessage,errorMessage,refresh,setRefresh } = use(FoodCartContext);
+  const { googleLogin, loginUser,setErrorMessage,errorMessage,refresh,setRefresh } = use(SkilloraContext);
   const [showPass,setShowPass]=useState(false)
   const location = useLocation();
   const navigate = useNavigate("");
@@ -17,7 +16,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         // check user from database
-        fetch(`https://food-cart-server.onrender.com/user/${user?.uid}`)
+        fetch(`http://localhost:5000/user/${user?.uid}`)
           .then((res) => res.json())
           .then((data) => {
             const availableUser = data?.user;
@@ -31,7 +30,7 @@ const Login = () => {
                 lastSignInTime: user?.metadata?.lastSignInTime,
                 uid: user?.uid,
               };
-              fetch("https://food-cart-server.onrender.com/register", {
+              fetch("http://localhost:5000/register", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -49,7 +48,7 @@ const Login = () => {
           });
         if (user) {
           // update log in information   in db
-          fetch("https://food-cart-server.onrender.com/login", {
+          fetch("http://localhost:5000/login", {
             method: "PATCH",
             headers: {
               "content-type": "application/json",
@@ -90,7 +89,7 @@ const Login = () => {
         const user = result.user;
         if (user) {
           // update information in db
-          fetch("https://food-cart-server.onrender.com/login", {
+          fetch("http://localhost:5000/login", {
             method: "PATCH",
             headers: {
               "content-type": "application/json",
@@ -100,8 +99,6 @@ const Login = () => {
               lastSignInTime: user?.metadata?.lastSignInTime,
             }),
           })
-            .then((res) => res.json())
-            .then((data) => {});
         }
         navigate(location?.state || "/");
         Swal.fire({
@@ -122,13 +119,26 @@ const Login = () => {
   return (
     <section className="w-full min-h-[70vh] flex items-center justify-center bg-primary/5 py-12 px-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
-        <img
-          src={Logo}
-          alt="Food Cart Logo"
-          className="w-20 h-20 mb-6 rounded-full border-4 border-primary/20 bg-white object-contain"
-        />
+            <svg
+              width="60"
+              height="60"
+              viewBox="0 0 64 64"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#3B82F6"
+              strokeWidth="4"
+            >
+              <title>Skillora Logo</title>
+              <path d="M32 4.5C21.2 4.5 12.5 13.2 12.5 24c0 7.8 4.6 14.5 11.1 17.6v4.3c0 2.2 1.8 3.9 4 3.9h8.8c2.2 0 4-1.8 4-3.9v-4.3c6.5-3.1 11.1-9.8 11.1-17.6C51.5 13.2 42.8 4.5 32 4.5z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M26 22c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4v8c0 2.2-1.8 4-4 4h-4c-2.2 0-4-1.8-4-4v-2"
+              />
+            </svg>
+        
         <h2 className="text-2xl font-bold text-primary mb-6">
-          Login to Foodied
+          Login to Skillora
         </h2>
         <form
           onSubmit={handleSubmit}
