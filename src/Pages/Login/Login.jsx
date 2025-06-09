@@ -118,7 +118,7 @@ const Login = () => {
   };
   return (
     <section className="w-full min-h-[70vh] flex items-center justify-center bg-primary/5 py-12 px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
+      <div className="max-w-md w-full border-2 border-primary/20 rounded-2xl shadow-lg p-8 flex flex-col items-center">
             <svg
               width="60"
               height="60"
@@ -147,8 +147,9 @@ const Login = () => {
           <input
             name="email"
             type="email"
+            defaultValue={"abcd@gmail.com"}
             placeholder="Email"
-            className="w-full px-4 py-3 rounded-lg border border-primary/20 focus:outline-none focus:border-primary text-gray-700"
+            className="w-full px-4 py-3 rounded-lg border border-primary/20 focus:outline-none focus:border-primary"
             required
           />
             <div className="mb-4 relative ">
@@ -166,8 +167,9 @@ const Login = () => {
                 type={showPass ? "text" : "password"}
                 id="password"
                 name="password"
+                defaultValue={"123456Aa@"}
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 rounded-lg border border-primary/20 focus:outline-none focus:border-primary text-gray-700"
+                className="w-full px-4 py-3 rounded-lg border border-primary/20 focus:outline-none focus:border-primary"
                 required
               />
             </div>
@@ -185,12 +187,12 @@ const Login = () => {
         </div>
         <button
           onClick={handleGoogleLogin}
-          className="w-full cursor-pointer flex items-center justify-center gap-3 border border-primary/30 py-3 rounded-lg font-semibold text-primary bg-white"
+          className="w-full cursor-pointer flex items-center justify-center gap-3 border border-primary/30 py-3 rounded-lg font-semibold text-primary "
         >
           <FcGoogle className="text-2xl" />
           Continue with Google
         </button>
-        <p className="mt-6 text-gray-500 text-sm">
+        <p className="mt-6 text-sm">
           Don't have an account?{" "}
           <Link
             state={location.state}
