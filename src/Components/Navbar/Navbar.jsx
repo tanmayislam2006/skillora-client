@@ -22,7 +22,6 @@ const Navbar = () => {
     logoutUser().then(() => toast.success("LogOut Succesfully"));
   };
 
-
   const link = (
     <>
       <li>
@@ -132,33 +131,33 @@ const Navbar = () => {
               </NavLink>
             </li>
             {user && (
-            <li>
-              <div className="dropdown dropdown-down mt-2">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  <FaThLarge size={20} />
-                  <span className="font-medium">Dashboard</span>
+              <li>
+                <div className="dropdown dropdown-down mt-2">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <FaThLarge size={20} />
+                    <span className="font-medium">Dashboard</span>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm space-y-6"
+                  >
+                    {link}
+                  </ul>
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm space-y-6"
-                >
-                  {link}
-                </ul>
-              </div>
-            </li>
+              </li>
             )}
           </ul>
           <ThemeToggle />
           {user ? (
-            <div className="dropdown dropdown-end mr-5   cursor-pointer">
+            <div className="dropdown dropdown-end mr-5  cursor-pointer">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar relative group"
+                className="btn btn-ghost btn-circle avatar relative group "
               >
                 <div className="w-10 rounded-full">
                   <img alt="user" src={user?.photo} />
@@ -169,52 +168,52 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-64 p-2 shadow space-y-5 py-2"
+                className="menu menu-sm bg-base-100 dropdown-content rounded-box z-1 mt-3 w-64 p-2 shadow space-y-5 py-2"
               >
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "font-bold text-primary underline flex items-center gap-1"
-                    : "font-semibold flex items-center gap-1"
-                }
-              >
-                <FaHome /> Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/services"
-                className={({ isActive }) =>
-                  isActive
-                    ? "font-bold text-primary underline flex items-center gap-1"
-                    : "font-semibold flex items-center gap-1"
-                }
-              >
-                <FaTools /> Services
-              </NavLink>
-            </li>
-            {user && (
-            <li>
-              <div className="dropdown dropdown-down mt-2">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  <FaThLarge size={20} />
-                  <span className="font-medium">Dashboard</span>
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm space-y-6"
-                >
-                  {link}
-                </ul>
-              </div>
-            </li>
-            )}
+                <li>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "font-bold text-primary underline flex items-center gap-1"
+                        : "font-semibold flex items-center gap-1"
+                    }
+                  >
+                    <FaHome /> Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/services"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "font-bold text-primary underline flex items-center gap-1"
+                        : "font-semibold flex items-center gap-1"
+                    }
+                  >
+                    <FaTools /> Services
+                  </NavLink>
+                </li>
+                {user && (
+                  <li>
+                    <div className="dropdown dropdown-down mt-2">
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="flex items-center gap-2 cursor-pointer"
+                      >
+                        <FaThLarge size={20} />
+                        <span className="font-medium">Dashboard</span>
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm space-y-6"
+                      >
+                        {link}
+                      </ul>
+                    </div>
+                  </li>
+                )}
                 <li>
                   <button
                     onClick={handleLogOut}
