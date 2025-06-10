@@ -40,7 +40,7 @@ const ManageService = () => {
                 title: "Deleted!",
                 text: "Your service has been deleted.",
                 icon: "success",
-                confirmButtonColor: "#16A34A",
+                confirmButtonColor: "#3b82f6",
               });
             } else {
               Swal.fire({

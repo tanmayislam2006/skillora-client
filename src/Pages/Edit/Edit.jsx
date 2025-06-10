@@ -5,7 +5,7 @@ import BouncingLoader from "../../Components/Loader/BouncingLoader";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Update = () => {
+const Edit = () => {
   const { foodItemsAll } = useContext(FoodCartContext);
   const { id } = useParams();
 
@@ -32,7 +32,7 @@ const Update = () => {
       })
       .then((res) => {
         if (res.data?.matchedCount) {
-          toast.success("Dish Update Succes!");
+          toast.success("Dish Edit Succes!");
         }
       });
   };
@@ -40,7 +40,7 @@ const Update = () => {
     <div className="min-h-screen  flex items-center justify-center p-4 sm:p-6 lg:p-8">
       <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 lg:p-12 w-full max-w-5xl border border-gray-200">
         <h2 className="text-4xl font-extrabold text-primary text-center mb-8 md:mb-10">
-          Update Dish Details
+          Edit Dish Details
         </h2>
         <form
           onSubmit={haandleUpdateDish}
@@ -156,7 +156,7 @@ const Update = () => {
           </div>
           <div className="flex md:justify-end md:col-span-2 pt-4">
             <button type="submit" className="btn btn-primary ">
-              Update Dish
+              Edit Dish
             </button>
           </div>
         </form>
@@ -165,4 +165,4 @@ const Update = () => {
   );
 };
 
-export default Update;
+export default Edit;
