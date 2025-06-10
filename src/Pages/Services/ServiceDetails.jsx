@@ -19,7 +19,19 @@ const ServiceDetails = () => {
         console.error("Error fetching service details:", error);
       });
   }, [id]);
+  const handlePurchase = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const purchaseData = {
+        uid: user?.uid,
+        ...data,
+        serviceStatus: "pending",
 
+    }
+    console.log(purchaseData);
+  };
   if (!service) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -99,111 +111,133 @@ const ServiceDetails = () => {
           <p className="text-center text-gray-500 mb-4">
             Please fill the form below to confirm your booking.
           </p>
-          <form className="space-y-4">
+          <form onSubmit={handlePurchase} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Service ID */}
               <div>
                 <label className="block text-sm font-semibold mb-1">
                   Service ID
                 </label>
                 <input
                   type="text"
+                  name="serviceId"
                   value={service._id}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out font-semibold"
                 />
               </div>
+              {/* Service Name */}
               <div>
                 <label className="block text-sm font-semibold mb-1">
                   Service Name
                 </label>
                 <input
                   type="text"
+                  name="serviceName"
                   value={service.name}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out font-semibold"
                 />
               </div>
+              {/* Service Photo */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-semibold mb-1">
                   Service Photo
                 </label>
                 <input
                   type="text"
+                  name="servicePhoto"
                   value={service.image || ""}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
                 />
               </div>
+              {/* Provider Email */}
               <div>
                 <label className="block text-sm font-semibold mb-1">
                   Provider Email
                 </label>
                 <input
                   type="text"
+                  name="providerEmail"
                   value={service.provider?.email || ""}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
                 />
               </div>
+              {/* Provider Name */}
               <div>
                 <label className="block text-sm font-semibold mb-1">
                   Provider Name
                 </label>
                 <input
                   type="text"
+                  name="providerName"
                   value={service.provider.name}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
                 />
               </div>
+              {/* Your Email */}
               <div>
                 <label className="block text-sm font-semibold mb-1">
                   Your Email
                 </label>
                 <input
                   type="text"
+                  name="userEmail"
                   value={user?.email || ""}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
                 />
               </div>
+              {/* Your Name */}
               <div>
                 <label className="block text-sm font-semibold mb-1">
                   Your Name
                 </label>
                 <input
                   type="text"
+                  name="userName"
                   value={user?.displayName || user?.name || ""}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
                 />
               </div>
+              {/* Service Taking Date */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-semibold mb-1">
                   Service Taking Date
                 </label>
                 <input
+                  required
                   type="date"
+                  name="serviceDate"
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
                 />
               </div>
+              {/* Special Instruction */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-semibold mb-1">
                   Special Instruction
                 </label>
                 <textarea
+                  required
+                  name="specialInstruction"
                   placeholder="Address, area, or any special request"
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
                   rows={2}
                 />
               </div>
+              {/* Price */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-semibold mb-1">
-                  Price
+                  Price $
                 </label>
                 <input
                   type="text"
-                  value={`$${service.price}`}
+                  name="price"
+                  value={`${service.price}`}
                   readOnly
                   className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out font-semibold"
                 />
