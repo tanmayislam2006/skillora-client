@@ -9,7 +9,7 @@ const ServiceDetails = () => {
   const navigate = useNavigate();
   const { user } = use(SkilloraContext);
   const [service, setService] = useState(null);
-
+console.log(service);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/service/${id}`)
