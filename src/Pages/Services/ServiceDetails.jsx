@@ -1,14 +1,17 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
+import SkilloraContext from "../../Context/SkilloraContext";
 
 const ServiceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = use(SkilloraContext);
   const [service, setService] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/service/${id}`)
+    axios
+      .get(`http://localhost:5000/service/${id}`)
       .then((response) => {
         setService(response.data);
       })
@@ -41,7 +44,9 @@ const ServiceDetails = () => {
               className="w-12 h-12 object-cover rounded-full border-2 border-primary"
             />
             <div>
-              <div className="text-lg font-semibold">{service.provider.name}</div>
+              <div className="text-lg font-semibold">
+                {service.provider.name}
+              </div>
               <div className="text-xs opacity-70">{service.area}</div>
             </div>
           </div>
@@ -67,6 +72,7 @@ const ServiceDetails = () => {
               </p>
             </div>
             <button
+              onClick={() => document.getElementById("my_modal_1").showModal()}
               className="cursor-pointer px-8 py-3 rounded-lg font-bold bg-primary text-white mb-4"
             >
               Book Now
@@ -85,6 +91,138 @@ const ServiceDetails = () => {
           </div>
         </div>
       </div>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box max-w-4xl w-full rounded-3xl shadow-2xl p-6 md:p-10 relative">
+          <h3 className="font-bold text-2xl md:text-3xl text-center text-primary mb-2">
+            Book This Service
+          </h3>
+          <p className="text-center text-gray-500 mb-4">
+            Please fill the form below to confirm your booking.
+          </p>
+          <form className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold mb-1">
+                  Service ID
+                </label>
+                <input
+                  type="text"
+                  value={service._id}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out font-semibold"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">
+                  Service Name
+                </label>
+                <input
+                  type="text"
+                  value={service.name}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out font-semibold"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold mb-1">
+                  Service Photo
+                </label>
+                <input
+                  type="text"
+                  value={service.image || ""}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">
+                  Provider Email
+                </label>
+                <input
+                  type="text"
+                  value={service.provider?.email || ""}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">
+                  Provider Name
+                </label>
+                <input
+                  type="text"
+                  value={service.provider.name}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">
+                  Your Email
+                </label>
+                <input
+                  type="text"
+                  value={user?.email || ""}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  value={user?.displayName || user?.name || ""}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold mb-1">
+                  Service Taking Date
+                </label>
+                <input
+                  type="date"
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold mb-1">
+                  Special Instruction
+                </label>
+                <textarea
+                  placeholder="Address, area, or any special request"
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out"
+                  rows={2}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold mb-1">
+                  Price
+                </label>
+                <input
+                  type="text"
+                  value={`$${service.price}`}
+                  readOnly
+                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base transition duration-200 ease-in-out font-semibold"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="w-8/12 flex justify-center mx-auto cursor-pointer mt-4 px-6 py-3 rounded-full font-bold bg-gradient-to-r from-primary to-blue-500 text-white text-lg shadow-lg "
+            >
+              Purchase
+            </button>
+          </form>
+          <div className="modal-action mt-6">
+            <form method="dialog">
+              <button className="btn btn-primary">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
