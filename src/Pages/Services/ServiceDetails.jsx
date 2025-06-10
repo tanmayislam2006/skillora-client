@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { use, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import SkilloraContext from "../../Context/SkilloraContext";
+import { toast } from "react-toastify";
 
 const ServiceDetails = () => {
   const { id } = useParams();
@@ -19,18 +20,42 @@ const ServiceDetails = () => {
         console.error("Error fetching service details:", error);
       });
   }, [id]);
+
   const handlePurchase = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     const purchaseData = {
-        uid: user?.uid,
-        ...data,
-        serviceStatus: "pending",
+      uid: user?.uid,
+      ...data,
+      serviceStatus: "pending",
+    };
 
-    }
-    console.log(purchaseData);
+    axios
+      .get(`http://localhost:5000/purchaseService/${user?.uid}`)
+      .then((res) => {
+        const alreadyBooked =
+          res.data &&
+          res.data.find((purchase) => purchase.serviceId === service._id);
+        if (alreadyBooked) {
+          toast.error("You have already booked this service!");
+          document.getElementById("my_modal_1").close();
+        } else {
+          axios
+            .post("http://localhost:5000/purchaseServices", purchaseData)
+            .then((response) => {
+              if (response.data?.insertedId) {
+                toast.success("Service booked successfully!");
+                form.reset();
+                document.getElementById("my_modal_1").close();
+              } else {
+                toast.error("Failed to book service. Please try again.");
+                document.getElementById("my_modal_1").close();
+              }
+            });
+        }
+      });
   };
   if (!service) {
     return (
