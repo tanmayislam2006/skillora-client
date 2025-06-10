@@ -3,12 +3,14 @@ import HowItWorks from "./HowItWorks";
 import Community from "./Community";
 import Feedback from "./Feedback";
 import Slider from "./Slider";
+import PopulerService from "./PopulerService";
 
 const Home = () => {
   return (
     <div>
       <Hero />
       <Slider/>
+      <PopulerService/>
       <HowItWorks />
       <Community />
       <Feedback />
