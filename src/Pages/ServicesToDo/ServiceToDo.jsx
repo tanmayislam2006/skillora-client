@@ -109,7 +109,7 @@ const ServiceToDo = () => {
         </div>
       )}
 
-      {/* Mobile card view */}
+      {/*mobile */}
       {!loading && bookings.length > 0 && (
         <div className="w-full max-w-4xl flex flex-col gap-4 md:hidden mt-6">
           {bookings.map((b) => (
@@ -126,7 +126,13 @@ const ServiceToDo = () => {
                 <div className="flex flex-col gap-4">
                   <div className="font-bold text-lg text-primary">{b.name}</div>
                   <div className="text-sm flex items-center gap-2 mt-1">
-                    <FaUser size={20} /> {b.booked || 0}
+                    <FaUser size={20} />{" "}
+                    <button
+                      onClick={() => handleCustomerBooked(b._id)}
+                      className="btn"
+                    >
+                      {b.booked || 0}
+                    </button>
                   </div>
                   <div className="text-sm  flex items-center gap-1">
                     <FaMapMarkerAlt size={20} /> {b.area || "N/A"}
@@ -136,6 +142,68 @@ const ServiceToDo = () => {
               </div>
             </div>
           ))}
+        </div>
+      )}
+      {/* modal */}
+      {bookedUsers.length > 0 && (
+        <div className="modal modal-open">
+          <div className="modal-box relative md:max-w-3xl w-full">
+            <h2 className="text-2xl font-bold mb-4 text-primary text-center">
+              Booked Users
+            </h2>
+            <div className="overflow-y-auto max-h-60">
+              <table className="min-w-full bg-transparent">
+                <thead>
+                  <tr className="border-b border-gray-100 text-center ">
+                    <th className="py-3 px-4 hidden md:table-cell">Photo</th>
+                    <th className="py-3 px-4 hidden md:table-cell">User Name</th>
+                    <th className="md:py-3 md:px-4">User Email</th>
+                    <th className="py-3 px-4">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bookedUsers.map((user) => (
+                    <tr
+                      key={user._id}
+                      className="border-b border-primary/40 text-center"
+                    >
+                      <td className="py-3 px-4 align-middle hidden md:table-cell">
+                        <img
+                          src={user.servicePhoto}
+                          alt={user.userName}
+                          className="w-12 h-12 rounded-full object-cover mx-auto"
+                        />
+                      </td>
+                      <td className="py-3 px-4 align-middle font-semibold hidden md:table-cell">
+                        {user.userName}
+                      </td>
+                      <td className="md:py-3 md:px-4 align-middle">
+                        <span className="flex items-center justify-center gap-1">
+                          <FaEnvelope className="inline mr-1" />
+                          {user.userEmail}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 align-middle">
+                        <select defaultValue={user.serviceStatus} name="status" className="bg-base-100 border border-primary/20 rounded-md px-3 py-1 text-sm">
+                          <option value="pending">Pending</option>
+                          <option value="working">Working</option>
+                          <option value="completed">Completed</option>
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="modal-action">
+              <button
+                onClick={() => setBookedUsers([])}
+                className="btn btn-primary"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
