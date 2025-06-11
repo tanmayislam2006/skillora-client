@@ -31,6 +31,20 @@ const ServiceToDo = () => {
       setBookedUsers(res.data);
     });
   };
+  const handleStatusChange = (id, serviceStatus) => {
+    axios
+      .put(`http://localhost:5000/updateServiceStatus/${id}`, {
+        serviceStatus
+      })
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          setRefresh((prev) => !prev);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating service status:", error);
+      });
+  };
   return (
     <div className="min-h-screen py-10 px-2 flex flex-col items-center">
       <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8 text-center">
@@ -156,35 +170,44 @@ const ServiceToDo = () => {
                 <thead>
                   <tr className="border-b border-gray-100 text-center ">
                     <th className="py-3 px-4 hidden md:table-cell">Photo</th>
-                    <th className="py-3 px-4 hidden md:table-cell">User Name</th>
+                    <th className="py-3 px-4 hidden md:table-cell">
+                      User Name
+                    </th>
                     <th className="md:py-3 md:px-4">User Email</th>
                     <th className="py-3 px-4">Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {bookedUsers.map((user) => (
+                  {bookedUsers.map((bUser) => (
                     <tr
-                      key={user._id}
+                      key={bUser._id}
                       className="border-b border-primary/40 text-center"
                     >
                       <td className="py-3 px-4 align-middle hidden md:table-cell">
                         <img
-                          src={user.servicePhoto}
-                          alt={user.userName}
+                          src={bUser.servicePhoto}
+                          alt={bUser.userName}
                           className="w-12 h-12 rounded-full object-cover mx-auto"
                         />
                       </td>
                       <td className="py-3 px-4 align-middle font-semibold hidden md:table-cell">
-                        {user.userName}
+                        {bUser.userName}
                       </td>
                       <td className="md:py-3 md:px-4 align-middle">
                         <span className="flex items-center justify-center gap-1">
                           <FaEnvelope className="inline mr-1" />
-                          {user.userEmail}
+                          {bUser.userEmail}
                         </span>
                       </td>
                       <td className="py-3 px-4 align-middle">
-                        <select defaultValue={user.serviceStatus} name="status" className="bg-base-100 border border-primary/20 rounded-md px-3 py-1 text-sm">
+                        <select
+                          onChange={(e) =>
+                            handleStatusChange(bUser?._id, e.target.value)
+                          }
+                          defaultValue={bUser?.serviceStatus}
+                          name="status"
+                          className="bg-base-100 border border-primary/20 rounded-md px-3 py-1 text-sm"
+                        >
                           <option value="pending">Pending</option>
                           <option value="working">Working</option>
                           <option value="completed">Completed</option>
