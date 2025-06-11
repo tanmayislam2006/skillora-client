@@ -8,15 +8,16 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../Firebase/firebase.init.js";
-import SkilloraContext from './SkilloraContext';
+import SkilloraContext from "./SkilloraContext";
 const googleProvider = new GoogleAuthProvider();
 
 const GreenProvider = ({ children }) => {
   const [firebaseUser, setFirebaseUser] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [search, setSearch] = useState("");
   const createAccount = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -69,6 +70,8 @@ const GreenProvider = ({ children }) => {
     user,
     refresh,
     setRefresh,
+    search,
+    setSearch,
   };
   return <SkilloraContext value={sharedData}>{children}</SkilloraContext>;
 };

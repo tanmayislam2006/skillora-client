@@ -1,14 +1,20 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
+import SkilloraContext from "./../../Context/SkilloraContext";
 const Services = () => {
+  const { search } = use(SkilloraContext);
+  let url = `http://localhost:5000/allServices`;
+  if (search) {
+    url += `?serviceName=${search}`;
+  }
   const [services, setServices] = useState([]);
   useEffect(() => {
-    axios.get("https://skillora-server-cggi.onrender.com/allServices").then((response) => {
+    axios.get(url).then((response) => {
       setServices(response.data);
     });
-  }, []);
+  }, [url]);
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
       <Helmet>

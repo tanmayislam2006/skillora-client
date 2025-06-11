@@ -1,5 +1,5 @@
 import React, { use } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import {
   FaHome,
   FaTools,
@@ -14,10 +14,11 @@ import {
 import { toast } from "react-toastify";
 import SkilloraContext from "../../Context/SkilloraContext";
 import ThemeToggle from "../Theme/ThemeToggle";
+import Search from "./Search";
 
 const Navbar = () => {
   const { user, logoutUser } = use(SkilloraContext);
-
+  const location = useLocation();
   const handleLogOut = () => {
     logoutUser().then(() => toast.success("LogOut Succesfully"));
   };
@@ -78,10 +79,11 @@ const Navbar = () => {
       </li>
     </>
   );
+  
   return (
     <>
       <nav className="w-full bg-base-100 sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2 ">
           <Link to="/" className="flex items-center gap-1">
             <svg
               width="30"
@@ -151,89 +153,92 @@ const Navbar = () => {
               </li>
             )}
           </ul>
-          <ThemeToggle />
-          {user ? (
-            <div className="dropdown dropdown-end mr-5  cursor-pointer">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar relative group "
-              >
-                <div className="w-10 rounded-full">
-                  <img alt="user" src={user?.photo} />
+          <div className="flex gap-4 md:gap-10 items-center">
+            {location.pathname === "/services" && <Search />}
+            <ThemeToggle />
+            {user ? (
+              <div className="dropdown dropdown-end mr-5  cursor-pointer">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar relative group "
+                >
+                  <div className="w-10 rounded-full">
+                    <img alt="user" src={user?.photo} />
+                  </div>
+                  <p className="absolute left-1/2 -translate-x-1/2 -bottom-10 bg-gray-800 text-white  rounded px-3 py-1 opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap z-50">
+                    {user?.name}
+                  </p>
                 </div>
-                <p className="absolute left-1/2 -translate-x-1/2 -bottom-10 bg-gray-800 text-white  rounded px-3 py-1 opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap z-50">
-                  {user?.name}
-                </p>
-              </div>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm bg-base-100 dropdown-content rounded-box z-1 mt-3 w-64 p-2 shadow space-y-5 py-2"
-              >
-                <li>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "font-bold text-primary underline flex items-center gap-1"
-                        : "font-semibold flex items-center gap-1"
-                    }
-                  >
-                    <FaHome /> Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/services"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "font-bold text-primary underline flex items-center gap-1"
-                        : "font-semibold flex items-center gap-1"
-                    }
-                  >
-                    <FaTools /> Services
-                  </NavLink>
-                </li>
-                {user && (
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm bg-base-100 dropdown-content rounded-box z-1 mt-3 w-64 p-2 shadow space-y-5 py-2"
+                >
                   <li>
-                    <div className="dropdown dropdown-down mt-2">
-                      <div
-                        tabIndex={0}
-                        role="button"
-                        className="flex items-center gap-2 cursor-pointer"
-                      >
-                        <FaThLarge size={20} />
-                        <span className="font-medium">Dashboard</span>
-                      </div>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm space-y-6"
-                      >
-                        {link}
-                      </ul>
-                    </div>
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "font-bold text-primary underline flex items-center gap-1"
+                          : "font-semibold flex items-center gap-1"
+                      }
+                    >
+                      <FaHome /> Home
+                    </NavLink>
                   </li>
-                )}
-                <li>
-                  <button
-                    onClick={handleLogOut}
-                    className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold mt-2"
-                  >
-                    <FaSignOutAlt /> Log Out
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <div className="hidden md:flex gap-3">
-              <Link
-                to="/login"
-                className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold"
-              >
-                <FaSignInAlt /> Login
-              </Link>
-            </div>
-          )}
+                  <li>
+                    <NavLink
+                      to="/services"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "font-bold text-primary underline flex items-center gap-1"
+                          : "font-semibold flex items-center gap-1"
+                      }
+                    >
+                      <FaTools /> Services
+                    </NavLink>
+                  </li>
+                  {user && (
+                    <li>
+                      <div className="dropdown dropdown-down mt-2">
+                        <div
+                          tabIndex={0}
+                          role="button"
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                          <FaThLarge size={20} />
+                          <span className="font-medium">Dashboard</span>
+                        </div>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm space-y-6"
+                        >
+                          {link}
+                        </ul>
+                      </div>
+                    </li>
+                  )}
+                  <li>
+                    <button
+                      onClick={handleLogOut}
+                      className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold mt-2"
+                    >
+                      <FaSignOutAlt /> Log Out
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="hidden md:flex gap-3">
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full font-bold"
+                >
+                  <FaSignInAlt /> Login
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
       <nav className="fixed bottom-0 left-0 right-0 z-50 shadow bg-base-100 lg:hidden">
