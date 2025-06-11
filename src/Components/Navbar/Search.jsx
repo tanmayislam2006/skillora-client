@@ -29,7 +29,7 @@ const Search = () => {
         onChange={handleSearchChange}
         type="search"
         required
-        placeholder="Search"
+        placeholder="Ex. Web Development."
       />
     </label>
   );
