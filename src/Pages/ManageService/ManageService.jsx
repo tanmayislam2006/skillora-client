@@ -14,7 +14,7 @@ const ManageService = () => {
   const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5000/userService/${user?.uid}`).then((res) => {
+    axios.get(`https://skillora-server-cggi.onrender.com/userService/${user?.uid}`).then((res) => {
       setMyServices(res.data);
       setLoading(false);
     });
@@ -32,7 +32,7 @@ const ManageService = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/deleteService/${id}`)
+          .delete(`https://skillora-server-cggi.onrender.com/deleteService/${id}`)
           .then((res) => {
             if (res.data.deletedCount) {
               setRefresh((prev) => !prev);

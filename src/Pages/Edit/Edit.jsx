@@ -13,7 +13,7 @@ const Edit = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/service/${id}`)
+      .get(`https://skillora-server-cggi.onrender.com/service/${id}`)
       .then((res) => {
         setService(res.data);
         setLoading(false);
@@ -38,7 +38,7 @@ const Edit = () => {
       uid: user?.uid,
     };
     axios
-      .put(`http://localhost:5000/updateService/${id}`, updatedService)
+      .put(`https://skillora-server-cggi.onrender.com/updateService/${id}`, updatedService)
       .then((res) => {
         if (res.data.modifiedCount) {
           toast.success("Service updated successfully!");

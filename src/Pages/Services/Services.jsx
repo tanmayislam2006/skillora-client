@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const Services = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/allServices").then((response) => {
+    axios.get("https://skillora-server-cggi.onrender.com/allServices").then((response) => {
       setServices(response.data);
     });
   }, []);

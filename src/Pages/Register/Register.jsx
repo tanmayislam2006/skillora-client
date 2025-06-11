@@ -39,7 +39,7 @@ const Register = () => {
           lastSignInTime: result.user?.metadata?.lastSignInTime,
           uid: result.user?.uid,
         };
-        fetch("http://localhost:5000/register", {
+        fetch("https://skillora-server-cggi.onrender.com/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const Register = () => {
           lastSignInTime: user?.metadata?.lastSignInTime,
           uid: user?.uid,
         };
-        fetch("http://localhost:5000/register", {
+        fetch("https://skillora-server-cggi.onrender.com/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

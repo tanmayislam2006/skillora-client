@@ -14,7 +14,7 @@ const ServiceToDo = () => {
     setLoading(true);
     if (user?.uid) {
       axios
-        .get(`http://localhost:5000/userService/${user?.uid}`)
+        .get(`https://skillora-server-cggi.onrender.com/userService/${user?.uid}`)
         .then((res) => {
           setBookings(res.data);
           setLoading(false);
@@ -27,13 +27,13 @@ const ServiceToDo = () => {
   }, [user?.uid, refresh]);
 
   const handleCustomerBooked = (id) => {
-    axios.get(`http://localhost:5000/customerBooked/${id}`).then((res) => {
+    axios.get(`https://skillora-server-cggi.onrender.com/customerBooked/${id}`).then((res) => {
       setBookedUsers(res.data);
     });
   };
   const handleStatusChange = (id, serviceStatus) => {
     axios
-      .put(`http://localhost:5000/updateServiceStatus/${id}`, {
+      .put(`https://skillora-server-cggi.onrender.com/updateServiceStatus/${id}`, {
         serviceStatus
       })
       .then((res) => {

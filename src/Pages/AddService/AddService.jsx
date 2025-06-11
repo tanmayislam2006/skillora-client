@@ -20,7 +20,7 @@ const AddService = () => {
       uid: user?.uid,
     };
     axios
-      .post("http://localhost:5000/addService", serviceData)
+      .post("https://skillora-server-cggi.onrender.com/addService", serviceData)
       .then((res) => {
         if (res.data.insertedId) {
           form.reset();

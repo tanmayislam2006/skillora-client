@@ -29,7 +29,7 @@ const BookedService = () => {
   useEffect(() => {
     if (!user?.email) return;
     axios
-      .get(`http://localhost:5000/purchaseService/${user.uid}`)
+      .get(`https://skillora-server-cggi.onrender.com/purchaseService/${user.uid}`)
       .then((res) => {
         if (Array.isArray(res.data)) {
           setBookedServices(res.data);
