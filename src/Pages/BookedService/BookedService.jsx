@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import SkilloraContext from "../../Context/SkilloraContext";
 import axios from "axios";
 import { FaCheckCircle, FaHourglassHalf, FaSpinner } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const statusMap = {
   pending: {
@@ -41,6 +42,13 @@ const BookedService = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-2 py-8">
+      <Helmet>
+        <title>Booked Services | Skillora</title>
+        <meta
+          name="description"
+          content="View and manage your booked services on Skillora."
+        />
+      </Helmet>
       <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6 text-center">
         My Booked Services
       </h2>

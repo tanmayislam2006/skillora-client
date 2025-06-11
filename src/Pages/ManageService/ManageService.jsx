@@ -4,6 +4,7 @@ import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 const ManageService = () => {
   const { user } = useContext(SkilloraContext);
@@ -65,6 +66,13 @@ const ManageService = () => {
 
   return (
     <div className="min-h-screen py-10 px-2 flex flex-col items-center">
+      <Helmet>
+        <title>My Services | Skillora</title>
+        <meta
+          name="description"
+          content="Manage your services on Skillora."
+        />
+      </Helmet>
       <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8 text-center">
         My Services
       </h1>

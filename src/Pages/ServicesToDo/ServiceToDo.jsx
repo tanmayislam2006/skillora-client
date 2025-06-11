@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import SkilloraContext from "../../Context/SkilloraContext";
 import axios from "axios";
 import { FaUser, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const ServiceToDo = () => {
   const { user } = useContext(SkilloraContext);
@@ -14,7 +15,9 @@ const ServiceToDo = () => {
     setLoading(true);
     if (user?.uid) {
       axios
-        .get(`https://skillora-server-cggi.onrender.com/userService/${user?.uid}`)
+        .get(
+          `https://skillora-server-cggi.onrender.com/userService/${user?.uid}`
+        )
         .then((res) => {
           setBookings(res.data);
           setLoading(false);
@@ -27,15 +30,20 @@ const ServiceToDo = () => {
   }, [user?.uid, refresh]);
 
   const handleCustomerBooked = (id) => {
-    axios.get(`https://skillora-server-cggi.onrender.com/customerBooked/${id}`).then((res) => {
-      setBookedUsers(res.data);
-    });
+    axios
+      .get(`https://skillora-server-cggi.onrender.com/customerBooked/${id}`)
+      .then((res) => {
+        setBookedUsers(res.data);
+      });
   };
   const handleStatusChange = (id, serviceStatus) => {
     axios
-      .put(`https://skillora-server-cggi.onrender.com/updateServiceStatus/${id}`, {
-        serviceStatus
-      })
+      .put(
+        `https://skillora-server-cggi.onrender.com/updateServiceStatus/${id}`,
+        {
+          serviceStatus,
+        }
+      )
       .then((res) => {
         if (res.data.modifiedCount) {
           setRefresh((prev) => !prev);
@@ -47,6 +55,13 @@ const ServiceToDo = () => {
   };
   return (
     <div className="min-h-screen py-10 px-2 flex flex-col items-center">
+      <Helmet>
+        <title>Services To Do | Skillora</title>
+        <meta
+          name="description"
+          content="Manage your services to do on Skillora."
+        />
+      </Helmet>
       <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8 text-center">
         Services To Do
       </h1>

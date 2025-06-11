@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import SkilloraContext from "../../Context/SkilloraContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Edit = () => {
   const { user } = useContext(SkilloraContext);
@@ -69,6 +70,13 @@ const Edit = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-2">
+      <Helmet>
+        <title>Edit Service | Skillora</title>
+        <meta
+          name="description"
+          content="Edit your service details on Skillora."
+        />
+      </Helmet>
       <div className="w-full max-w-5xl rounded-3xl shadow-2xl p-8 md:p-12 bg-base-100 border-2 border-primary/20">
         <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-6 text-center tracking-tight">
           Edit Service

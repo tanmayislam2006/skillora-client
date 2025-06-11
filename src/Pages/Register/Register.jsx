@@ -5,6 +5,7 @@ import SkilloraContext from './../../Context/SkilloraContext';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { googleLogin, errorMessage, setErrorMessage, createAccount, refresh, setRefresh } = use(SkilloraContext);
@@ -105,6 +106,9 @@ const Register = () => {
 
   return (
     <section className="w-full min-h-[80vh] flex items-center justify-center bg-primary/5 py-12 px-4">
+      <Helmet>
+        <title>Register | Skillora</title>
+      </Helmet>
       <div className="max-w-lg w-full bg-base-200 border border-primary/20 rounded-2xl shadow-lg p-8 flex flex-col items-center">
             <svg
               width="60"

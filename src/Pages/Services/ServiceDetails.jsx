@@ -3,6 +3,7 @@ import React, { use, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import SkilloraContext from "../../Context/SkilloraContext";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const ServiceDetails = () => {
   const { id } = useParams();
@@ -67,6 +68,13 @@ console.log(service);
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-2">
+      <Helmet>
+        <title>{service.name} | Skillora</title>
+        <meta
+          name="description"
+          content={service.description}
+        />
+      </Helmet>
       <div className="w-full max-w-6xl rounded-2xl shadow-2xl p-6 md:p-12 flex flex-col lg:flex-row gap-10 bg-base-100 border-2 border-primary/20">
         <div className="flex-shrink-0 flex flex-col items-center md:items-start w-full lg:w-1/2 relative">
           <img

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -10,6 +11,13 @@ const Services = () => {
   }, []);
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
+      <Helmet>
+        <title>All Services | Skillora</title>
+        <meta
+          name="description"
+          content="Explore all services offered on Skillora, your platform for learning and development."
+        />
+      </Helmet>
       <h2 className="text-3xl font-bold mb-8 text-center text-primary">
         All Services
       </h2>

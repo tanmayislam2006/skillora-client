@@ -5,6 +5,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import SkilloraContext from "../../Context/SkilloraContext";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const {
@@ -125,6 +126,13 @@ const Login = () => {
   };
   return (
     <section className="w-full min-h-[70vh] flex items-center justify-center bg-primary/5 py-12 px-4">
+      <Helmet>
+        <title>Login | Skillora</title>
+        <meta
+          name="description"
+          content="Login to Skillora and continue your learning journey."
+        />
+      </Helmet>
       <div className="max-w-md w-full border-2 border-primary/20 rounded-2xl shadow-lg p-8 flex flex-col items-center">
         <svg
           width="60"

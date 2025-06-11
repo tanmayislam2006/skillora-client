@@ -4,13 +4,21 @@ import Community from "./Community";
 import Feedback from "./Feedback";
 import Slider from "./Slider";
 import PopulerService from "./PopulerService";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Home | Skillora</title>
+        <meta
+          name="description"
+          content="Welcome to Skillora, your go-to platform for learning and development."
+        />
+      </Helmet>
       <Hero />
-      <Slider/>
-      <PopulerService/>
+      <Slider />
+      <PopulerService />
       <HowItWorks />
       <Community />
       <Feedback />
