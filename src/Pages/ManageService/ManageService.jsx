@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
+import Spiner from "../../Components/Loader/Spiner";
 
 const ManageService = () => {
   const { user } = useContext(SkilloraContext);
@@ -78,9 +79,7 @@ const ManageService = () => {
       </h1>
 
       {loading && (
-        <div className="flex justify-center items-center h-48">
-          <span className="loading loading-spinner loading-lg text-primary"></span>
-        </div>
+<Spiner/>
       )}
 
       {!loading && myServices.length === 0 && (
