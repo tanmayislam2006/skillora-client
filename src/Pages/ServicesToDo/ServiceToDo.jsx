@@ -16,7 +16,7 @@ const ServiceToDo = () => {
     if (user?.uid) {
       axios
         .get(
-          `http://localhost:5000/userService/${user?.uid}`,
+          `https://skillora-server.vercel.app/userService/${user?.uid}`,
           {
             headers: {
               authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
@@ -36,7 +36,7 @@ const ServiceToDo = () => {
 
   const handleCustomerBooked = (id) => {
     axios
-      .get(`http://localhost:5000/customerBooked/${id}`, {
+      .get(`https://skillora-server.vercel.app/customerBooked/${id}`, {
         headers: {
           authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
         },
@@ -48,7 +48,7 @@ const ServiceToDo = () => {
   const handleStatusChange = (id, serviceStatus) => {
     axios
       .put(
-        `http://localhost:5000/updateServiceStatus/${id}`,
+        `https://skillora-server.vercel.app/updateServiceStatus/${id}`,
         {
           serviceStatus,
         },

@@ -17,7 +17,7 @@ const ManageService = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/userService/${user?.uid}`, {
+      .get(`https://skillora-server.vercel.app/userService/${user?.uid}`, {
         headers: {
           authorization: `Bearer ${firebaseUser?.accessToken}`,
         },
@@ -40,7 +40,7 @@ const ManageService = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/deleteService/${id}`)
+          .delete(`https://skillora-server.vercel.app/deleteService/${id}`)
           .then((res) => {
             if (res.data.deletedCount) {
               setRefresh((prev) => !prev);

@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import SkilloraContext from "./../../Context/SkilloraContext";
 const Services = () => {
   const { search } = use(SkilloraContext);
-  let url = `http://localhost:5000/allServices`;
+  let url = `https://skillora-server.vercel.app/allServices`;
   if (search) {
     url += `?serviceName=${search}`;
   }

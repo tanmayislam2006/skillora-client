@@ -21,7 +21,7 @@ const AddService = () => {
       uid: user?.uid,
     };
     axios
-      .post("http://localhost:5000/addService", serviceData, {
+      .post("https://skillora-server.vercel.app/addService", serviceData, {
         headers: {
           authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
         },

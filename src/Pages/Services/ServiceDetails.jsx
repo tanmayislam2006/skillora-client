@@ -13,7 +13,7 @@ const ServiceDetails = () => {
 console.log(service);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/service/${id}`)
+      .get(`https://skillora-server.vercel.app/service/${id}`)
       .then((response) => {
         setService(response.data);
       })
@@ -34,7 +34,7 @@ console.log(service);
     };
 
     axios
-      .get(`http://localhost:5000/purchaseService/${user?.uid}`)
+      .get(`https://skillora-server.vercel.app/purchaseService/${user?.uid}`)
       .then((res) => {
         const alreadyBooked =
           res.data &&
@@ -44,7 +44,7 @@ console.log(service);
           document.getElementById("my_modal_1").close();
         } else {
           axios
-            .post("http://localhost:5000/purchaseServices", purchaseData)
+            .post("https://skillora-server.vercel.app/purchaseServices", purchaseData)
             .then((response) => {
               if (response.data?.insertedId) {
                 toast.success("Service booked successfully!");

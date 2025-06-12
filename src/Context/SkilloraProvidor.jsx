@@ -44,7 +44,7 @@ const GreenProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     if (firebaseUser?.uid) {
-      fetch(`http://localhost:5000/user/${firebaseUser.uid}`, {
+      fetch(`https://skillora-server.vercel.app/user/${firebaseUser.uid}`, {
         headers: {
           authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
         },

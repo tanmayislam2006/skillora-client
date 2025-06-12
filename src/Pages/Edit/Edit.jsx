@@ -14,7 +14,7 @@ const Edit = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/service/${id}`, {
+      .get(`https://skillora-server.vercel.app/service/${id}`, {
         headers: {
           authorization: `Bearer ${firebaseUser?.accessToken}`,
         },
@@ -43,7 +43,7 @@ const Edit = () => {
       uid: user?.uid,
     };
     axios
-      .put(`http://localhost:5000/updateService/${id}`, updatedService, {
+      .put(`https://skillora-server.vercel.app/updateService/${id}`, updatedService, {
         headers: {
           authorization: `Bearer ${firebaseUser?.accessToken}`,
         },
