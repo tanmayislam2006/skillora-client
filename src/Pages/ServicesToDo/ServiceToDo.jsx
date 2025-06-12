@@ -5,7 +5,7 @@ import { FaUser, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 
 const ServiceToDo = () => {
-  const { user } = useContext(SkilloraContext);
+  const { user, firebaseUser } = useContext(SkilloraContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
@@ -16,7 +16,12 @@ const ServiceToDo = () => {
     if (user?.uid) {
       axios
         .get(
-          `https://skillora-server-cggi.onrender.com/userService/${user?.uid}`
+          `http://localhost:5000/userService/${user?.uid}`,
+          {
+            headers: {
+              authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+            },
+          }
         )
         .then((res) => {
           setBookings(res.data);
@@ -27,11 +32,15 @@ const ServiceToDo = () => {
           setLoading(false);
         });
     }
-  }, [user?.uid, refresh]);
+  }, [user?.uid, refresh, firebaseUser]);
 
   const handleCustomerBooked = (id) => {
     axios
-      .get(`https://skillora-server-cggi.onrender.com/customerBooked/${id}`)
+      .get(`http://localhost:5000/customerBooked/${id}`, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+        },
+      })
       .then((res) => {
         setBookedUsers(res.data);
       });
@@ -39,9 +48,14 @@ const ServiceToDo = () => {
   const handleStatusChange = (id, serviceStatus) => {
     axios
       .put(
-        `https://skillora-server-cggi.onrender.com/updateServiceStatus/${id}`,
+        `http://localhost:5000/updateServiceStatus/${id}`,
         {
           serviceStatus,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+          },
         }
       )
       .then((res) => {

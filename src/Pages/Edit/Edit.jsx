@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 
 const Edit = () => {
-  const { user } = useContext(SkilloraContext);
+  const { user, firebaseUser } = useContext(SkilloraContext);
   const { id } = useParams();
   const navigate = useNavigate();
   const [service, setService] = useState(null);
@@ -14,7 +14,11 @@ const Edit = () => {
 
   useEffect(() => {
     axios
-      .get(`https://skillora-server-cggi.onrender.com/service/${id}`)
+      .get(`http://localhost:5000/service/${id}`, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken}`,
+        },
+      })
       .then((res) => {
         setService(res.data);
         setLoading(false);
@@ -22,7 +26,7 @@ const Edit = () => {
       .catch(() => {
         setLoading(false);
       });
-  }, [id]);
+  }, [id, firebaseUser]);
 
   const handleUpdateService = (e) => {
     e.preventDefault();
@@ -39,7 +43,11 @@ const Edit = () => {
       uid: user?.uid,
     };
     axios
-      .put(`https://skillora-server-cggi.onrender.com/updateService/${id}`, updatedService)
+      .put(`http://localhost:5000/updateService/${id}`, updatedService, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken}`,
+        },
+      })
       .then((res) => {
         if (res.data.modifiedCount) {
           toast.success("Service updated successfully!");

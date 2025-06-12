@@ -44,9 +44,11 @@ const GreenProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     if (firebaseUser?.uid) {
-      fetch(
-        `https://skillora-server-cggi.onrender.com/user/${firebaseUser.uid}`
-      )
+      fetch(`http://localhost:5000/user/${firebaseUser.uid}`, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           setUser(data);

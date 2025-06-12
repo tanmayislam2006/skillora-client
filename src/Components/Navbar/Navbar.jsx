@@ -79,7 +79,7 @@ const Navbar = () => {
       </li>
     </>
   );
-  
+
   return (
     <>
       <nav className="w-full bg-base-100 sticky top-0 z-20">

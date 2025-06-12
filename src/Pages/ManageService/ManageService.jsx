@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 import Spiner from "../../Components/Loader/Spiner";
 
 const ManageService = () => {
-  const { user } = useContext(SkilloraContext);
+  const { user, firebaseUser } = useContext(SkilloraContext);
   const [myServices, setMyServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
@@ -16,11 +16,17 @@ const ManageService = () => {
   const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://skillora-server-cggi.onrender.com/userService/${user?.uid}`).then((res) => {
-      setMyServices(res.data);
-      setLoading(false);
-    });
-  }, [user?.uid, user?.email, refresh]);
+    axios
+      .get(`http://localhost:5000/userService/${user?.uid}`, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken}`,
+        },
+      })
+      .then((res) => {
+        setMyServices(res.data);
+        setLoading(false);
+      });
+  }, [user?.uid, user?.email, refresh, firebaseUser]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -34,7 +40,7 @@ const ManageService = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://skillora-server-cggi.onrender.com/deleteService/${id}`)
+          .delete(`http://localhost:5000/deleteService/${id}`)
           .then((res) => {
             if (res.data.deletedCount) {
               setRefresh((prev) => !prev);
@@ -69,18 +75,13 @@ const ManageService = () => {
     <div className="min-h-screen py-10 px-2 flex flex-col items-center">
       <Helmet>
         <title>My Services | Skillora</title>
-        <meta
-          name="description"
-          content="Manage your services on Skillora."
-        />
+        <meta name="description" content="Manage your services on Skillora." />
       </Helmet>
       <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8 text-center">
         My Services
       </h1>
 
-      {loading && (
-<Spiner/>
-      )}
+      {loading && <Spiner />}
 
       {!loading && myServices.length === 0 && (
         <div className="w-full max-w-4xl flex flex-col items-center justify-center py-16">

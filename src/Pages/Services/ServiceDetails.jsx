@@ -13,7 +13,7 @@ const ServiceDetails = () => {
 console.log(service);
   useEffect(() => {
     axios
-      .get(`https://skillora-server-cggi.onrender.com/service/${id}`)
+      .get(`http://localhost:5000/service/${id}`)
       .then((response) => {
         setService(response.data);
       })
@@ -34,7 +34,7 @@ console.log(service);
     };
 
     axios
-      .get(`https://skillora-server-cggi.onrender.com/purchaseService/${user?.uid}`)
+      .get(`http://localhost:5000/purchaseService/${user?.uid}`)
       .then((res) => {
         const alreadyBooked =
           res.data &&
@@ -44,7 +44,7 @@ console.log(service);
           document.getElementById("my_modal_1").close();
         } else {
           axios
-            .post("https://skillora-server-cggi.onrender.com/purchaseServices", purchaseData)
+            .post("http://localhost:5000/purchaseServices", purchaseData)
             .then((response) => {
               if (response.data?.insertedId) {
                 toast.success("Service booked successfully!");

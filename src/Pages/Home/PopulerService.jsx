@@ -5,7 +5,7 @@ import {  Link } from "react-router";
 const PopulerService = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    axios.get("https://skillora-server-cggi.onrender.com/allServices").then((response) => {
+    axios.get("http://localhost:5000/allServices").then((response) => {
       const responseData = response.data;
       //    make slice of first 6 services
       setServices(responseData.slice(0, 6));

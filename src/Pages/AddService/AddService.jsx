@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 
 const AddService = () => {
-  const { user } = useContext(SkilloraContext);
+  const { user, firebaseUser } = useContext(SkilloraContext);
   const handleAddService = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -21,7 +21,11 @@ const AddService = () => {
       uid: user?.uid,
     };
     axios
-      .post("https://skillora-server-cggi.onrender.com/addService", serviceData)
+      .post("http://localhost:5000/addService", serviceData, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+        },
+      })
       .then((res) => {
         if (res.data.insertedId) {
           form.reset();
@@ -30,17 +34,14 @@ const AddService = () => {
       })
       .catch((error) => {
         console.error("Error adding service:", error);
-        alert("Failed to add service. Please try again.");
+        toast.error("Failed to add service. Please try again.");
       });
   };
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-2">
       <Helmet>
         <title>Add Service | Skillora</title>
-        <meta
-          name="description"
-          content="Add a new service to Skillora."
-        />
+        <meta name="description" content="Add a new service to Skillora." />
       </Helmet>
       <div className="w-full max-w-5xl rounded-3xl shadow-2xl p-8 md:p-12 bg-base-100 border-2 border-primary/20">
         <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-6 text-center tracking-tight">

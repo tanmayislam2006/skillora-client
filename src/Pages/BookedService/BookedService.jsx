@@ -23,14 +23,18 @@ const statusMap = {
 };
 
 const BookedService = () => {
-  const { user } = useContext(SkilloraContext);
+  const { user, firebaseUser } = useContext(SkilloraContext);
   const [bookedServices, setBookedServices] = useState([]);
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     if (!user?.email) return;
     axios
-      .get(`https://skillora-server-cggi.onrender.com/purchaseService/${user.uid}`)
+      .get(`http://localhost:5000/purchaseService/${user.uid}`,{
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+        },
+      })
       .then((res) => {
         if (Array.isArray(res.data)) {
           setBookedServices(res.data);
@@ -38,7 +42,7 @@ const BookedService = () => {
           setBookedServices([]);
         }
       });
-  }, [user]);
+  }, [user,firebaseUser]);
 
   return (
     <div className="max-w-5xl mx-auto px-2 py-8">

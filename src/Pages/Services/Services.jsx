@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import SkilloraContext from "./../../Context/SkilloraContext";
 const Services = () => {
   const { search } = use(SkilloraContext);
-  let url = `https://skillora-server-cggi.onrender.com/allServices`;
+  let url = `http://localhost:5000/allServices`;
   if (search) {
     url += `?serviceName=${search}`;
   }
