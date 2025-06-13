@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 import Spiner from "../../Components/Loader/Spiner";
+import MyCalendar from "./MyCalendar";
 
 const ManageService = () => {
   const { user, firebaseUser } = useContext(SkilloraContext);
@@ -98,7 +99,6 @@ const ManageService = () => {
           </p>
         </div>
       )}
-
       {/* large device */}
       {!loading && myServices.length > 0 && (
         <div className="w-full max-w-5xl rounded-lg shadow-lg overflow-x-auto border border-gray-200 hidden md:block">
