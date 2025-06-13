@@ -1,27 +1,38 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {  Link } from "react-router";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Link } from "react-router";
 
 const PopulerService = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    axios.get("https://skillora-server.vercel.app/allServices").then((response) => {
-      const responseData = response.data;
-      //    make slice of first 6 services
-      setServices(responseData.slice(0, 6));
-    });
+    axios
+      .get("https://skillora-server.vercel.app/allServices")
+      .then((response) => {
+        const responseData = response.data;
+        //    make slice of first 6 services
+        setServices(responseData.slice(0, 6));
+      });
+  }, []);
+  useEffect(() => {
+    AOS.init({ duration: 500});
   }, []);
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
-      <h2 className="text-primary text-3xl md:text-4xl font-bold text-center">
+      <h2
+        className="text-primary text-3xl md:text-4xl font-bold text-center"
+      >
         Popular Services
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-        {services.map((service) => (
+        {services.map((service,idx) => (
           <div
             key={service._id}
             className="flex flex-col md:flex-row rounded-xl shadow-lg overflow-hidden bg-base-100 border border-gray-200"
+            data-aos="fade-right"
+            data-aos-delay={idx * 1000}
           >
             <img
               src={service.image}
