@@ -1,16 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router';
-
+import Aos from "aos";
+import React, { useEffect } from "react";
+import { Link } from "react-router";
+import "aos/dist/aos.css";
 const Hero = () => {
+  useEffect(() => {
+    Aos.init({ duration: 5000 });
+  }, []);
   return (
-    <section className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-7xl mx-auto px-4 py-16 gap-10">
+    <section
+      data-aos="fade-down"
+      className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-7xl mx-auto px-4 py-16 gap-10"
+    >
       <div className="flex-1">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
-          Empower Your <span className="text-primary">Skills</span>, <br className="hidden md:block" />
+          Empower Your <span className="text-primary">Skills</span>,{" "}
+          <br className="hidden md:block" />
           Connect & Grow with <span className="text-primary">Skillora</span>
         </h1>
         <p className="text-lg md:text-xl mb-8">
-          Discover a seamless platform to add, update, and manage your services, book what you need from others, and keep track of every booking and status. Skillora makes service sharing simple, organized, and accessible for everyone.
+          Discover a seamless platform to add, update, and manage your services,
+          book what you need from others, and keep track of every booking and
+          status. Skillora makes service sharing simple, organized, and
+          accessible for everyone.
         </p>
         <div className="flex flex-wrap gap-4">
           <Link

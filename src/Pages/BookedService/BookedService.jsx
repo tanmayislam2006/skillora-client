@@ -3,6 +3,7 @@ import SkilloraContext from "../../Context/SkilloraContext";
 import axios from "axios";
 import { FaCheckCircle, FaHourglassHalf, FaSpinner } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
+import Spiner from "../../Components/Loader/Spiner";
 
 const statusMap = {
   pending: {
@@ -26,9 +27,11 @@ const BookedService = () => {
   const { user, firebaseUser } = useContext(SkilloraContext);
   const [bookedServices, setBookedServices] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [loading,setLoading]=useState(true)
 
   useEffect(() => {
     if (!user?.email) return;
+    setLoading(true)
     axios
       .get(`https://skillora-server.vercel.app/purchaseService/${user.uid}`,{
         headers: {
@@ -38,8 +41,10 @@ const BookedService = () => {
       .then((res) => {
         if (Array.isArray(res.data)) {
           setBookedServices(res.data);
+          setLoading(false)
         } else {
           setBookedServices([]);
+          setLoading(false)
         }
       });
   }, [user,firebaseUser]);
@@ -56,7 +61,8 @@ const BookedService = () => {
       <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6 text-center">
         My Booked Services
       </h2>
-      {bookedServices.length === 0 ? (
+      {loading && <Spiner/>}
+      {!loading && bookedServices.length === 0 ? (
         <div className="text-center py-16">
           You have not booked any services yet.
         </div>

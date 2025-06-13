@@ -4,23 +4,30 @@ import { useParams, useNavigate } from "react-router";
 import SkilloraContext from "../../Context/SkilloraContext";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
+import Spiner from "../../Components/Loader/Spiner";
 
 const ServiceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = use(SkilloraContext);
+  const { user, firebaseUser } = use(SkilloraContext);
   const [service, setService] = useState(null);
-console.log(service);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(`https://skillora-server.vercel.app/service/${id}`)
+      .get(`https://skillora-server.vercel.app/service/${id}`, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+        },
+      })
       .then((response) => {
         setService(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching service details:", error);
       });
-  }, [id]);
+  }, [id, firebaseUser?.accessToken]);
 
   const handlePurchase = (e) => {
     e.preventDefault();
@@ -34,7 +41,11 @@ console.log(service);
     };
 
     axios
-      .get(`https://skillora-server.vercel.app/purchaseService/${user?.uid}`)
+      .get(`https://skillora-server.vercel.app/purchaseService/${user?.uid}`, {
+        headers: {
+          authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+        },
+      })
       .then((res) => {
         const alreadyBooked =
           res.data &&
@@ -44,7 +55,15 @@ console.log(service);
           document.getElementById("my_modal_1").close();
         } else {
           axios
-            .post("https://skillora-server.vercel.app/purchaseServices", purchaseData)
+            .post(
+              "https://skillora-server.vercel.app/purchaseServices",
+              purchaseData,
+              {
+                headers: {
+                  authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+                },
+              }
+            )
             .then((response) => {
               if (response.data?.insertedId) {
                 toast.success("Service booked successfully!");
@@ -68,12 +87,10 @@ console.log(service);
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-2">
+      {loading && <Spiner/>}
       <Helmet>
         <title>{service.name} | Skillora</title>
-        <meta
-          name="description"
-          content={service.description}
-        />
+        <meta name="description" content={service.description} />
       </Helmet>
       <div className="w-full max-w-6xl rounded-2xl shadow-2xl p-6 md:p-12 flex flex-col lg:flex-row gap-10 bg-base-100 border-2 border-primary/20">
         <div className="flex-shrink-0 flex flex-col items-center md:items-start w-full lg:w-1/2 relative">
@@ -290,6 +307,7 @@ console.log(service);
           </div>
         </div>
       </dialog>
+
     </div>
   );
 };
