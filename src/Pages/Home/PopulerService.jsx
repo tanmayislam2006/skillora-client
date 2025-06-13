@@ -16,7 +16,7 @@ const PopulerService = () => {
       });
   }, []);
   useEffect(() => {
-    AOS.init({ duration: 500});
+    AOS.init({ duration: 800});
   }, []);
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
@@ -32,7 +32,7 @@ const PopulerService = () => {
             key={service._id}
             className="flex flex-col md:flex-row rounded-xl shadow-lg overflow-hidden bg-base-100 border border-gray-200"
             data-aos="fade-right"
-            data-aos-delay={idx * 1000}
+            data-aos-delay={idx * 300}
           >
             <img
               src={service.image}

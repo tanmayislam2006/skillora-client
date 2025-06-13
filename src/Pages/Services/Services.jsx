@@ -3,6 +3,8 @@ import React, { use, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 import SkilloraContext from "./../../Context/SkilloraContext";
+import Aos from "aos";
+import Spiner from "./../../Components/Loader/Spiner";
 const Services = () => {
   const { search } = use(SkilloraContext);
   let url = `https://skillora-server.vercel.app/allServices`;
@@ -10,11 +12,17 @@ const Services = () => {
     url += `?serviceName=${search}`;
   }
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     axios.get(url).then((response) => {
       setServices(response.data);
+      setLoading(false);
     });
   }, [url]);
+  useEffect(() => {
+    Aos.init({ duration: 500 });
+  }, []);
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
       <Helmet>
@@ -27,7 +35,7 @@ const Services = () => {
       <h2 className="text-3xl font-bold mb-8 text-center text-primary">
         All Services
       </h2>
-      {services.length === 0 && (
+      {!loading && services.length === 0 && (
         <div className="flex flex-col items-center justify-center py-20">
           <img
             src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
@@ -41,11 +49,14 @@ const Services = () => {
           </p>
         </div>
       )}
+      {loading && <Spiner />}
       <div className="flex flex-col gap-8">
-        {services.map((service) => (
+        {services.map((service,idx) => (
           <div
             key={service._id}
             className="flex flex-col md:flex-row rounded-xl shadow-lg overflow-hidden bg-base-100 border-2 border-primary"
+            data-aos="fade-down"
+            data-aos-delay={idx * 100}
           >
             <img
               src={service.image}
