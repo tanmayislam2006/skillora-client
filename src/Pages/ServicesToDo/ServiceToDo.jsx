@@ -17,14 +17,11 @@ const ServiceToDo = () => {
     setLoading(true);
     if (user?.uid) {
       axios
-        .get(
-          `https://skillora-server.vercel.app/userService/${user?.uid}`,
-          {
-            headers: {
-              authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
-            },
-          }
-        )
+        .get(`https://skillora-server.vercel.app/userService/${user?.uid}`, {
+          headers: {
+            authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+          },
+        })
         .then((res) => {
           setBookings(res.data);
           setLoading(false);
@@ -53,6 +50,7 @@ const ServiceToDo = () => {
         `https://skillora-server.vercel.app/updateServiceStatus/${id}`,
         {
           serviceStatus,
+          senderUser: user?.email,
         },
         {
           headers: {
@@ -272,15 +270,14 @@ const ServiceToDo = () => {
         >
           {showCalendar ? "No" : "Yes"}
         </button>
-        
-      {/* Show Calendar if Yes is clicked */}
-      {showCalendar && (
-        <div className="w-full max-w-2xl mx-auto mb-8 bg-base-100 rounded-xl shadow p-6 flex flex-col items-center">
-          <MyCalendar />
-        </div>
-      )}
-      </div>
 
+        {/* Show Calendar if Yes is clicked */}
+        {showCalendar && (
+          <div className="w-full max-w-2xl mx-auto mb-8 bg-base-100 rounded-xl shadow p-6 flex flex-col items-center">
+            <MyCalendar />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -34,7 +34,8 @@ const ServiceDetails = () => {
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-
+    const utcDate = new Date("2025-06-14T14:43:54.245Z");
+    const bdTime = utcDate.toLocaleString("en-US", { timeZone: "Asia/Dhaka" });
     const purchaseData = {
       uid: user?.uid,
       ...data,
@@ -46,7 +47,7 @@ const ServiceDetails = () => {
       senderUser: user?.email,
       type: "boking",
       message: `${user?.name} booked your service ${service?.name}`,
-      time: new Date().toLocaleTimeString(),
+      time: bdTime,
     };
     axios
       .get(`https://skillora-server.vercel.app/purchaseService/${user?.uid}`, {

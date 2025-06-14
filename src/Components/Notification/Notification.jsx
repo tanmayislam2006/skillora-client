@@ -7,17 +7,19 @@ const Notification = () => {
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   useEffect(() => {
-    axios
-      .get(
-        `https://skillora-server.vercel.app/notifications/${firebaseUser?.email}`,
-        {
-          headers: {
-            authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
-          },
-        }
-      )
-      .then((res) => setNotifications(res.data));
-  }, [firebaseUser?.email, firebaseUser?.accessToken]);
+    if (firebaseUser?.email) {
+      axios
+        .get(
+          `https://skillora-server.vercel.app/notifications/${firebaseUser?.email}`,
+          {
+            headers: {
+              authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+            },
+          }
+        )
+        .then((res) => setNotifications(res.data));
+    }
+  }, [firebaseUser?.email, firebaseUser?.accessToken, open]);
 
   return (
     <div className="relative inline-block text-left">
@@ -40,11 +42,9 @@ const Notification = () => {
               notifications.map((item) => (
                 <li
                   key={item._id}
-                  className="px-4 py-3 hover:bg-base-200 cursor-pointer"
+                  className="px-4 py-3 hover:bg-base-200 cursor-pointer border-b"
                 >
-                  <div className="font-medium ">
-                    {item.message}
-                  </div>
+                  <div className="font-medium ">{item.message}</div>
                   <div className="text-xs  mt-1 flex justify-between">
                     <span>From: {item.senderUser}</span>
                     <span>{item.time}</span>
@@ -52,14 +52,10 @@ const Notification = () => {
                 </li>
               ))
             ) : (
-              <li className="px-4 py-3 text-center">
-                No notifications
-              </li>
+              <li className="px-4 py-3 text-center">No notifications</li>
             )}
           </ul>
-          <div className="p-2 text-center text-sm  border-t">
-            View all
-          </div>
+          <div className="p-2 text-center text-sm  border-t">View all</div>
         </div>
       )}
     </div>
