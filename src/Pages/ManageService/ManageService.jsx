@@ -41,7 +41,11 @@ const ManageService = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://skillora-server.vercel.app/deleteService/${id}`)
+          .delete(`https://skillora-server.vercel.app/deleteService/${id}`, {
+            headers: {
+              authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+            },
+          })
           .then((res) => {
             if (res.data.deletedCount) {
               setRefresh((prev) => !prev);
@@ -56,7 +60,7 @@ const ManageService = () => {
                 title: "Error!",
                 text: "Failed to delete service. Please try again.",
                 icon: "error",
-                confirmButtonColor: "#16A34A",
+                confirmButtonColor: "#3b82f6",
               });
             }
           })

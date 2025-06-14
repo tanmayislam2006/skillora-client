@@ -34,12 +34,20 @@ const ServiceDetails = () => {
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+
     const purchaseData = {
       uid: user?.uid,
       ...data,
       serviceStatus: "pending",
     };
-
+    // setnotification data(now i send data provider who booked his services)
+    const notificationData = {
+      receiverUser: service.provider?.email,
+      senderUser: user?.email,
+      type: "boking",
+      message: `${user?.name} booked your service ${service?.name}`,
+      time: new Date().toLocaleTimeString(),
+    };
     axios
       .get(`https://skillora-server.vercel.app/purchaseService/${user?.uid}`, {
         headers: {
@@ -74,6 +82,16 @@ const ServiceDetails = () => {
                 document.getElementById("my_modal_1").close();
               }
             });
+          // send notifcation to service providor
+          axios.post(
+            "https://skillora-server.vercel.app/notifications",
+            notificationData,
+            {
+              headers: {
+                authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
+              },
+            }
+          );
         }
       });
   };
@@ -87,7 +105,7 @@ const ServiceDetails = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-2">
-      {loading && <Spiner/>}
+      {loading && <Spiner />}
       <Helmet>
         <title>{service.name} | Skillora</title>
         <meta name="description" content={service.description} />
@@ -307,7 +325,6 @@ const ServiceDetails = () => {
           </div>
         </div>
       </dialog>
-
     </div>
   );
 };

@@ -14,6 +14,7 @@ import {
 import { toast } from "react-toastify";
 import SkilloraContext from "../../Context/SkilloraContext";
 import ThemeToggle from "../Theme/ThemeToggle";
+import Notification from "../Notification/Notification";
 
 const Navbar = () => {
   const { user, logoutUser } = use(SkilloraContext);
@@ -152,6 +153,7 @@ const Navbar = () => {
             )}
           </ul>
           <div className="flex gap-4 md:gap-10 items-center">
+            <Notification/>
             <ThemeToggle />
             {user ? (
               <div className="dropdown dropdown-end mr-5  cursor-pointer">
