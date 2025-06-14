@@ -33,7 +33,7 @@ const Notification = () => {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 mt-2 w-80 border bg-base-100 border-gray-200 rounded-lg shadow-lg z-50">
+        <div className="absolute -right-16 md:right-0 mt-2 md:w-80 border bg-base-100 border-gray-200 rounded-lg shadow-lg z-50">
           <div className="p-4 border-b font-bold text-primary">
             Notifications
           </div>
