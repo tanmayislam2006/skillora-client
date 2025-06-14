@@ -12,6 +12,7 @@ import ServiceToDo from "./../Pages/ServicesToDo/ServiceToDo";
 import Register from "./../Pages/Register/Register";
 import ServiceDetails from "../Pages/Services/ServiceDetails";
 import Edit from "../Pages/Edit/Edit";
+import Profile from "../Pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
         path: "/editService/:id",
         element: (
           <PrivateRouter>
-            <Edit/>
+            <Edit />
           </PrivateRouter>
         ),
       },
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <ServiceToDo />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRouter>
+            <Profile />
           </PrivateRouter>
         ),
       },
