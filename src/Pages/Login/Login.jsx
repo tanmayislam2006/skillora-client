@@ -159,7 +159,6 @@ const Login = () => {
           <input
             name="email"
             type="email"
-            defaultValue={"abcd@gmail.com"}
             placeholder="Email"
             className="w-full px-4 py-3 rounded-lg border border-primary/20 focus:outline-none focus:border-primary"
             required
@@ -175,7 +174,6 @@ const Login = () => {
               type={showPass ? "text" : "password"}
               id="password"
               name="password"
-              defaultValue={"123456Aa@"}
               placeholder="Enter your password"
               className="w-full px-4 py-3 rounded-lg border border-primary/20 focus:outline-none focus:border-primary"
               required
