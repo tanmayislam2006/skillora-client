@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import SkilloraContext from "./../../Context/SkilloraContext";
 import Aos from "aos";
 import Spiner from "./../../Components/Loader/Spiner";
+import Search from "../../Components/Search/Search";
 const Services = () => {
   const { search } = use(SkilloraContext);
   let url = `https://skillora-server.vercel.app/allServices`;
@@ -35,6 +36,7 @@ const Services = () => {
       <h2 className="text-3xl font-bold mb-8 text-center text-primary">
         All Services
       </h2>
+      <Search/>
       {!loading && services.length === 0 && (
         <div className="flex flex-col items-center justify-center py-20">
           <img

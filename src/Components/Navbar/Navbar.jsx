@@ -1,5 +1,5 @@
 import React, { use } from "react";
-import { Link, NavLink, useLocation } from "react-router";
+import { Link, NavLink } from "react-router";
 import {
   FaHome,
   FaTools,
@@ -14,11 +14,9 @@ import {
 import { toast } from "react-toastify";
 import SkilloraContext from "../../Context/SkilloraContext";
 import ThemeToggle from "../Theme/ThemeToggle";
-import Search from "./Search";
 
 const Navbar = () => {
   const { user, logoutUser } = use(SkilloraContext);
-  const location = useLocation();
   const handleLogOut = () => {
     logoutUser().then(() => toast.success("LogOut Succesfully"));
   };
@@ -154,7 +152,6 @@ const Navbar = () => {
             )}
           </ul>
           <div className="flex gap-4 md:gap-10 items-center">
-            {location.pathname === "/services" && <Search />}
             <ThemeToggle />
             {user ? (
               <div className="dropdown dropdown-end mr-5  cursor-pointer">
