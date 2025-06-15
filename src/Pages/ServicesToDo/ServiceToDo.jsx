@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaUser, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 import MyCalendar from "../ManageService/MyCalendar";
+import Swal from "sweetalert2";
 
 const ServiceToDo = () => {
   const { user, firebaseUser } = useContext(SkilloraContext);
@@ -24,6 +25,14 @@ const ServiceToDo = () => {
         })
         .then((res) => {
           setBookings(res.data);
+          if (res.data) {
+            Swal.fire({
+              icon: "success",
+              title: "Recived Message",
+              text: `Use the status dropdown on each booking to update its progress.Please click the customer count`,
+              confirmButtonColor: "#3b82f6",
+            });
+          }
           setLoading(false);
         })
         .catch((error) => {
