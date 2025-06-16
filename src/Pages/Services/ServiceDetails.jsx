@@ -12,6 +12,8 @@ const ServiceDetails = () => {
   const { user, firebaseUser } = use(SkilloraContext);
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
+  const utcDate = new Date();
+  const bdTime = utcDate.toLocaleString("en-CA", { timeZone: "Asia/Dhaka" });
   useEffect(() => {
     setLoading(true);
     axios
@@ -34,8 +36,6 @@ const ServiceDetails = () => {
     const form = e.target;
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    const utcDate = new Date("2025-06-14T14:43:54.245Z");
-    const bdTime = utcDate.toLocaleString("en-US", { timeZone: "Asia/Dhaka" });
     const purchaseData = {
       uid: user?.uid,
       ...data,
