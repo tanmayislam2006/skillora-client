@@ -45,8 +45,8 @@ const PopulerService = () => {
                   {service.name}
                 </h3>
                 <p className="mb-4 opacity-80">
-                  {service.description.slice(0, 100)}
-                  {service.description.length > 100 && "..."}
+                  {service.description.slice(0, 20)}
+                  {service.description.length > 200 && "..."}
                 </p>
               </div>
               <div className="flex items-center justify-between mt-4">
@@ -58,8 +58,8 @@ const PopulerService = () => {
                   />
                   <span className="font-medium">{service.provider.name}</span>
                 </div>
-                <span className="font-bold text-lg">${service.price}</span>
               </div>
+                <p className="font-bold text-lg">Price :${service.price}</p>
               <div className="mt-6">
                 <a
                   href={`/service/${service._id}`}

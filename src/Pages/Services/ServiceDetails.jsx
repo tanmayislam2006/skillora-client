@@ -99,7 +99,7 @@ const ServiceDetails = () => {
   if (!service) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <span className="text-lg text-primary">Service not found.</span>
+       <Spiner/>
       </div>
     );
   }
