@@ -1,19 +1,24 @@
 import axios from "axios";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 import SkilloraContext from "./../../Context/SkilloraContext";
 import Aos from "aos";
+import "aos/dist/aos.css";
+import { useContext } from "react";
 import Spiner from "./../../Components/Loader/Spiner";
 import Search from "../../Components/Search/Search";
+
 const Services = () => {
-  const { search } = use(SkilloraContext);
+  const { search } = useContext(SkilloraContext);
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   let url = `https://skillora-server.vercel.app/allServices`;
   if (search) {
     url += `?serviceName=${search}`;
   }
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setLoading(true);
     axios.get(url).then((response) => {
@@ -21,9 +26,11 @@ const Services = () => {
       setLoading(false);
     });
   }, [url]);
+
   useEffect(() => {
-    Aos.init({ duration: 500 });
+    Aos.init({ duration: 800, once: true });
   }, []);
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
       <Helmet>
@@ -33,12 +40,28 @@ const Services = () => {
           content="Explore all services offered on Skillora, your platform for learning and development."
         />
       </Helmet>
-      <h2 className="text-3xl font-bold mb-8 text-center text-primary">
+
+      {/* Heading with fade-up */}
+      <h2
+        className="text-3xl md:text-4xl font-bold mb-8 text-center text-primary"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
         All Services
       </h2>
-      <Search/>
+
+      {/* Search with fade-right */}
+      <div data-aos="fade-right" data-aos-delay="200">
+        <Search />
+      </div>
+
+      {/* Empty state with fade-up */}
       {!loading && services.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-20">
+        <div
+          className="flex flex-col items-center justify-center py-20"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
           <img
             src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
             alt="No services"
@@ -51,14 +74,17 @@ const Services = () => {
           </p>
         </div>
       )}
+
       {loading && <Spiner />}
+
+      {/* Services List */}
       <div className="flex flex-col gap-8">
-        {services.map((service,idx) => (
+        {services.map((service, idx) => (
           <div
             key={service._id}
             className="flex flex-col md:flex-row rounded-xl shadow-lg overflow-hidden bg-base-100 border-2 border-primary"
-            data-aos="fade-down"
-            data-aos-delay={idx * 100}
+            data-aos={idx % 2 === 0 ? "fade-right" : "fade-left"}
+            data-aos-delay={idx * 150}
           >
             <img
               src={service.image}
@@ -69,16 +95,16 @@ const Services = () => {
               <div>
                 <h3 className="text-xl font-bold mb-2">{service.name}</h3>
                 <p className="mb-3 opacity-80">
-                  {service.description.slice(0, 100)}
-                  {service.description.length > 100 && "..."}
+                  {service.description?.slice(0, 100)}
+                  {service.description?.length > 100 && "..."}
                 </p>
                 <div className="flex items-center gap-3 mb-3">
                   <img
-                    src={service.provider.image}
-                    alt={service.provider.name}
-                    className="w-10 h-10 rounded-full"
+                    src={service.provider?.image}
+                    alt={service.provider?.name}
+                    className="w-10 h-10 rounded-full object-cover"
                   />
-                  <span className="font-medium">{service.provider.name}</span>
+                  <span className="font-medium">{service.provider?.name}</span>
                 </div>
                 <div className="mb-3">
                   <span className="font-semibold">Area:</span> {service.area}
@@ -90,7 +116,7 @@ const Services = () => {
               <div>
                 <Link
                   to={`/service/${service._id}`}
-                  className="px-5 py-2 rounded-full font-semibold bg-primary text-white w-max"
+                  className="px-5 py-2 rounded-full font-semibold bg-primary text-white w-max hover:bg-primary/90 transition"
                 >
                   View Detail
                 </Link>
