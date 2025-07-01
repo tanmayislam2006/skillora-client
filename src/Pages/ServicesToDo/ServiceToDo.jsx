@@ -25,14 +25,6 @@ const ServiceToDo = () => {
         })
         .then((res) => {
           setBookings(res.data);
-          if (res.data) {
-            Swal.fire({
-              icon: "success",
-              title: "Recived Message",
-              text: `Use the status dropdown on each booking to update its progress.Please click the customer count`,
-              confirmButtonColor: "#3b82f6",
-            });
-          }
           setLoading(false);
         })
         .catch((error) => {
@@ -110,7 +102,7 @@ const ServiceToDo = () => {
 
       {/* Table for large devices */}
       {!loading && bookings.length > 0 && (
-        <div className="w-full max-w-5xl rounded-lg shadow-md overflow-x-auto border border-gray-200 hidden md:block">
+        <div className="w-full max-w-6xl rounded-lg shadow-md overflow-x-auto border border-gray-200 hidden md:block">
           <div className="flex items-center shadow gap-2 px-4 py-2 bg-gray-100 border-b border-gray-200">
             <span className="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
             <span className="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
@@ -269,7 +261,7 @@ const ServiceToDo = () => {
       )}
 
       {/* Schedule Check Section */}
-      <div className="w-full max-w-5xl mx-auto mb-8 bg-base-100 rounded-xl shadow p-6 flex flex-col items-center border border-primary/20 mt-20">
+      <div className="w-full max-w-6xl mx-auto mb-8 bg-base-100 rounded-xl shadow p-6 flex flex-col items-center border border-primary/20 mt-20">
         <h2 className="text-xl font-bold mb-3 text-primary text-center">
           Check the schedule for today's work or service
         </h2>

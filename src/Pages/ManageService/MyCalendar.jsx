@@ -4,6 +4,7 @@ import "react-day-picker/style.css";
 import SkilloraContext from "../../Context/SkilloraContext";
 import axios from "axios";
 import { FaEnvelope } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const MyCalendar = () => {
   const [selected, setSelected] = useState();
@@ -23,6 +24,12 @@ const MyCalendar = () => {
       })
       .then((res) => {
         if (res.data) {
+          if (res.data.length === 0) {
+            Swal.fire({
+              title: "No Booking Found This Date",
+              confirmButtonText: "Check Another",
+            });
+          }
           setScheduleData(res.data);
         }
       })

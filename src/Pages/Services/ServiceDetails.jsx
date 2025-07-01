@@ -173,7 +173,7 @@ const ServiceDetails = () => {
         </div>
       </div>
       <dialog id="my_modal_1" className="modal">
-        <div className="modal-box max-w-4xl w-full rounded-3xl shadow-2xl p-6 md:p-10 relative">
+        <div className="modal-box max-w-5xl w-full rounded-xl shadow-2xl p-6 md:p-10 relative">
           <h3 className="font-bold text-2xl md:text-3xl text-center text-primary mb-2">
             Book This Service
           </h3>

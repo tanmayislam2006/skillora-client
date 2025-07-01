@@ -70,7 +70,7 @@ const Edit = () => {
 
   if (!service) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-base-100">
         <p className="mt-4 text-xl text-gray-700">Service not found.</p>
       </div>
     );
@@ -85,7 +85,7 @@ const Edit = () => {
           content="Edit your service details on Skillora."
         />
       </Helmet>
-      <div className="w-full max-w-5xl rounded-3xl shadow-2xl p-8 md:p-12 bg-base-100 border-2 border-primary/20">
+      <div className="w-full max-w-6xl rounded-3xl shadow-2xl p-8 md:p-12 bg-base-100 border-2 border-primary/20">
         <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-6 text-center tracking-tight">
           Edit Service
         </h2>

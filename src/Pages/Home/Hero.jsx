@@ -9,7 +9,7 @@ const Hero = () => {
   return (
     <section
       data-aos="fade-down"
-      className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-7xl mx-auto px-4 py-16 gap-10"
+      className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-7xl mx-auto px-4 py-10 gap-10"
     >
       <div className="flex-1">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">

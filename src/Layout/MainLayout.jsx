@@ -6,11 +6,11 @@ import { ToastContainer } from "react-toastify";
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen max-w-7xl mx-auto ">
+    <div className="min-h-screen  mx-auto ">
       <Navbar />{" "}
       <ToastContainer/>
       <main className="flex-1 flex justify-center items-start">
-        <div className="w-full min-h-[calc(100vh-130px)]">
+        <div className="w-full min-h-[calc(100vh-130px)] max-w-7xl">
           <Outlet />
         </div>
       </main>

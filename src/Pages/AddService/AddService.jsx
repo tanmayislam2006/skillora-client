@@ -43,7 +43,7 @@ const AddService = () => {
         <title>Add Service | Skillora</title>
         <meta name="description" content="Add a new service to Skillora." />
       </Helmet>
-      <div className="w-full max-w-5xl rounded-3xl shadow-2xl p-8 md:p-12 bg-base-100 border-2 border-primary/20">
+      <div className="w-full max-w-7xl rounded-3xl shadow-2xl p-8 md:p-12 bg-base-100 border-2 border-primary/20">
         <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-6 text-center tracking-tight">
           Add New Service
         </h2>

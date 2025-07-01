@@ -19,14 +19,14 @@ const PopulerService = () => {
     AOS.init({ duration: 800});
   }, []);
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <h2
         className="text-primary text-3xl md:text-4xl font-bold text-center"
       >
         Popular Services
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
         {services.map((service,idx) => (
           <div
             key={service._id}

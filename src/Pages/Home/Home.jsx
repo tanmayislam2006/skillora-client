@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
-    <div>
+    <div className="*:border">
       <Helmet>
         <title>Home | Skillora</title>
         <meta
@@ -17,7 +17,6 @@ const Home = () => {
         />
       </Helmet>
       <Hero />
-      <Slider />
       <PopulerService />
       <HowItWorks />
       <Community />

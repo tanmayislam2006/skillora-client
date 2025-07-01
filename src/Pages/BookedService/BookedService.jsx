@@ -27,13 +27,13 @@ const BookedService = () => {
   const { user, firebaseUser } = useContext(SkilloraContext);
   const [bookedServices, setBookedServices] = useState([]);
   const [selected, setSelected] = useState(null);
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.email) return;
-    setLoading(true)
+    setLoading(true);
     axios
-      .get(`https://skillora-server.vercel.app/purchaseService/${user.uid}`,{
+      .get(`https://skillora-server.vercel.app/purchaseService/${user.uid}`, {
         headers: {
           authorization: `Bearer ${firebaseUser?.accessToken || ""}`,
         },
@@ -41,16 +41,16 @@ const BookedService = () => {
       .then((res) => {
         if (Array.isArray(res.data)) {
           setBookedServices(res.data);
-          setLoading(false)
+          setLoading(false);
         } else {
           setBookedServices([]);
-          setLoading(false)
+          setLoading(false);
         }
       });
-  }, [user,firebaseUser]);
+  }, [user, firebaseUser]);
 
   return (
-    <div className="max-w-5xl mx-auto px-2 py-8">
+    <div className="max-w-6xl mx-auto px-2 py-8">
       <Helmet>
         <title>Booked Services | Skillora</title>
         <meta
@@ -61,13 +61,14 @@ const BookedService = () => {
       <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6 text-center">
         My Booked Services
       </h2>
-      {loading && <Spiner/>}
+      {loading && <Spiner />}
       {!loading && bookedServices.length === 0 ? (
         <div className="text-center py-16">
           You have not booked any services yet.
         </div>
       ) : (
         <>
+          {/* Card view for mobile/tablet */}
           <div className="grid gap-6 md:grid-cols-2 lg:hidden">
             {bookedServices.map((service) => {
               const status =
@@ -122,16 +123,16 @@ const BookedService = () => {
           {/* Table for large devices */}
           <div className="hidden lg:block">
             <div className="overflow-x-auto rounded-xl shadow">
-              <table className="min-w-full bg-base-100 border border-primary/20">
+              <table className="min-w-full max-w-6xl mx-auto bg-base-100 border border-primary/20">
                 <thead>
                   <tr className="bg-primary text-white text-left">
-                    <th className="py-3 px-4 rounded-tl-xl">Photo</th>
-                    <th className="py-3 px-4">Service Name</th>
-                    <th className="py-3 px-4">Provider</th>
-                    <th className="py-3 px-4">Date</th>
-                    <th className="py-3 px-4">Price</th>
-                    <th className="py-3 px-4">Status</th>
-                    <th className="py-3 px-4 rounded-tr-xl">Action</th>
+                    <th className="py-2 px-6 rounded-tl-xl text-base">Photo</th>
+                    <th className="py-2 px-6 text-base">Service Name</th>
+                    <th className="py-2 px-6 text-base">Provider</th>
+                    <th className="py-2 px-6 text-base">Date</th>
+                    <th className="py-2 px-6 text-base">Price</th>
+                    <th className="py-2 px-6 text-base">Status</th>
+                    <th className="py-2 px-6 rounded-tr-xl text-base">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,20 +141,26 @@ const BookedService = () => {
                       statusMap[service.serviceStatus] || statusMap.pending;
                     return (
                       <tr key={service._id} className="border-b">
-                        <td className="py-2 px-4">
+                        <td className="py-2 px-6 align-middle">
                           <img
                             src={service.servicePhoto}
                             alt={service.serviceName}
-                            className="w-16 h-12 object-cover rounded"
+                            className="w-20 h-16 object-cover rounded"
                           />
                         </td>
-                        <td className="py-2 px-4 font-semibold">
+                        <td className="py-2 px-6 font-semibold align-middle">
                           {service.serviceName}
                         </td>
-                        <td className="py-2 px-4">{service.providerName}</td>
-                        <td className="py-2 px-4">{service.serviceDate}</td>
-                        <td className="py-2 px-4">${service.price}</td>
-                        <td className="py-2 px-4">
+                        <td className="py-2 px-6 align-middle">
+                          {service.providerName}
+                        </td>
+                        <td className="py-2 px-6 align-middle">
+                          {service.serviceDate}
+                        </td>
+                        <td className="py-2 px-6 align-middle">
+                          ${service.price}
+                        </td>
+                        <td className="py-2 px-6 align-middle">
                           <span
                             className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${status.color}`}
                           >
@@ -161,9 +168,9 @@ const BookedService = () => {
                             {status.label}
                           </span>
                         </td>
-                        <td className="py-2 px-4">
+                        <td className="py-2 px-6 align-middle">
                           <button
-                            onClick={() =>{
+                            onClick={() => {
                               setSelected(service);
                             }}
                             className="cursor-pointer px-4 py-1 rounded-full bg-primary text-white font-bold"
