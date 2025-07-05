@@ -1,11 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 import SkilloraContext from "./../../Context/SkilloraContext";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { useContext } from "react";
 import Spiner from "./../../Components/Loader/Spiner";
 import Search from "../../Components/Search/Search";
 
@@ -13,11 +12,14 @@ const Services = () => {
   const { search } = useContext(SkilloraContext);
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState("asc"); // "asc" or "desc"
 
+  // Build URL with search and sort
   let url = `https://skillora-server.vercel.app/allServices`;
-  if (search) {
-    url += `?serviceName=${search}`;
-  }
+  const params = [];
+  if (search) params.push(`serviceName=${search}`);
+  if (sort) params.push(`sort=${sort}`);
+  if (params.length) url += `?${params.join("&")}`;
 
   useEffect(() => {
     setLoading(true);
@@ -32,7 +34,7 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16">
+    <div className="max-w-6xl mx-auto px-2 py-16">
       <Helmet>
         <title>All Services | Skillora</title>
         <meta
@@ -52,7 +54,7 @@ const Services = () => {
 
       {/* Search with fade-right */}
       <div data-aos="fade-right" data-aos-delay="200">
-        <Search />
+        <Search sort={sort} setSort={setSort} />
       </div>
 
       {/* Empty state with fade-up */}
